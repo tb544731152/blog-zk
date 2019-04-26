@@ -1,0 +1,22 @@
+/* pages/explain/explain.wxss */
+page{
+    background: #f5fbfa;
+}
+ .container{
+     background: #f5f8fa;
+ }
+.title{
+  display: block;
+  margin:20rpx 30rpx 0 30rpx;
+  font-size: 36rpx;
+  color: #333;
+  line-height: 55rpx;
+}
+.content{
+  display: block;
+  margin: 0 30rpx;
+  text-indent: 2em;
+  font-size: 30rpx;
+  color: #666;
+  line-height: 50rpx; 
+}

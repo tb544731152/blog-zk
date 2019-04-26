@@ -1,0 +1,77 @@
+/* pages/post/post.wxss */
+
+textarea {
+    padding: 0 30rpx;
+    height: 240rpx;
+    font-size: 30rpx;
+    color: #333;
+    line-height: 40rpx;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.num {
+    color: #999;
+    font-size: 24rpx;
+    text-align: right;
+    margin-right: 30rpx;
+    line-height: 60rpx;
+}
+
+.issue {
+    width: 540rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    background: #ccc;
+    font-size: 30rpx;
+    color: #fff;
+    border-radius: 44rpx;
+    margin-top: 335rpx;
+}
+
+.issue.on {
+     background: linear-gradient(-90deg, #fa544e 0%, #ff7302 100%),
+                linear-gradient(#f9645a, #f9645a);
+}
+
+.ui_uploader {
+    width: 230rpx;
+    height: 230rpx;
+    margin-left: 10rpx;
+    float: left;
+    background: url(https://wxapp.zyzsbj.cn/zyzs/upload.png) no-repeat;
+    background-size: cover;
+}
+
+.ui_uploader_cell {
+    width: 710rpx;
+    height: 230rpx;
+    margin: 0 auto;
+}
+
+.ui_uploader_cell .ui_uploader_item:nth-child(1) {
+    margin-left: 0;
+}
+
+.ui_uploader_item {
+    width: 230rpx;
+    height: 230rpx;
+    margin-left: 10rpx;
+    float: left;
+    position: relative;
+}
+
+.showImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 4rpx;  
+}
+
+.ui_uploader_item_icon {
+    width: 20rpx;
+    height: 20rpx;
+    position: absolute;
+    left: -10rpx;
+    top: -10rpx;
+    z-index: 999;
+}

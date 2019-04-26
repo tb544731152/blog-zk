@@ -1,0 +1,26 @@
+<!--pages/post/post.wxml-->
+<view>
+<form bindsubmit="loadimg" report-submit="true">
+  <view>
+    <textarea placeholder="来吧，尽情发挥吧......"  value='{{content}}' maxlength='{{max}}' name="content" bindinput="bindBlur" placeholder-style="color:#c2c2c2"></textarea>
+    <view class='num'>{{current}}/{{max}}</view>
+  </view>
+
+    <!-- 添加图片  -->
+  <view class='ui_uploader_cell'>
+    <!-- 根据已选择的图片临时路径数组展示图片-->
+    <view class='ui_uploader_item' wx:for="{{uploaderList}}" wx:key="{{index}}">
+        <!-- 删除-->
+        <icon class='ui_uploader_item_icon' bindtap='clearImg' data-index="{{index}}" type="clear" size="20" color="rgba(85,85,85,0.9)"/>
+
+        <!-- 图片-->
+        <image bindtap='showImg' class='showImg' mode='aspectFill'
+  data-index="{{index}}" src='{{item}}'></image>
+    </view>
+    <!-- 上传按钮+框 -->
+    <view class='ui_uploader'  bindtap='upload' wx:if="{{showUpload}}"></view>
+</view>
+
+  <button form-type="submit" class='{{one==true?"issue on":"issue"}}'  disabled='{{forbid}}'>发布</button>
+</form>
+</view>

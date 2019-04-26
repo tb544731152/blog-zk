@@ -1,0 +1,8 @@
+<view class="container">
+    <!-- <form bindsubmit="bindSave"> -->
+    <image class="logo" src="../../images/logo.png"  />
+    <!-- <view class="title">微信授权页面</view> -->
+    <view class="profile">请完成微信授权以继续使用</view>
+    <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{canIUse}}" class="weui-btn mini-btn">授权登录</button>
+    <!-- </form> -->
+</view>

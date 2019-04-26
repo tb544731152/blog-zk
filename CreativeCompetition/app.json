@@ -1,0 +1,20 @@
+{
+    "pages": [
+        "pages/competition/competition",  
+        "pages/share/share",          
+        "pages/detail/detail",        
+        "pages/index/index",      
+        "pages/logs/logs",
+        "pages/post/post",
+        "pages/explain/explain",
+        "pages/address/address",
+        "pages/authorize/index"
+      
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#d91f13",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "white"
+    }
+}

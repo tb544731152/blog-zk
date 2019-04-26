@@ -1,0 +1,65 @@
+<view class='container'>
+    <view class='intro' bindtap='introFun'>
+        <image src='../../images/intro.png'></image>
+    </view>
+    <view class='top'>
+        <image src='{{topImg}}'></image>
+        <text class='time'>{{time}}</text>
+    </view>
+
+    <view class='main'>
+        <view class='my_comment'>
+
+
+            <view class='my_list'>
+                <view class='list_content'>
+                    <view class='my_info'>
+                        <view class='photo_box'>
+                            <image class='photo' mode='aspectFill' src='{{headimg}}'></image>
+                            <text class="{{rank>3? 'grey':''}}">No.{{rank}}</text>
+                        </view>
+                        <view class='user_name'>
+                            <text>{{nickname}}</text>
+                        </view>
+                        <view class='comment_time'>
+                            <text>{{createTime}}</text>
+                        </view>
+                    </view>
+
+                    <view class='comment_cotent'>
+                        <text>{{content}}</text>
+                    </view>
+
+                    <view class='comment_pic' hidden='{{imgs.length==0}}'>
+                        <view class='item_pic'  class='{{imgs.length<=2?"item_pic1":"item_pic"}}' wx:for='{{imgs}}' wx:for-index="index" wx:key="index">
+                            <image wx:if='{{imgs!=null}}'  bindtap="imgYu" data-list="{{imgs}}" data-src="{{item}}" src='{{item}}' mode='aspectFill'></image>
+                        </view>
+
+                    </view>
+
+
+                </view>
+
+
+
+            </view>
+
+
+
+        </view>
+
+
+    </view>
+
+    <view class='footer'>
+        <view class='find_other' bindtap='findOther'>
+            <text>查看其它创意</text>
+        </view>
+        <view class='btn'>
+            <button open-type='share'>分享</button>
+            <!-- <text bindtap='zan'>{{zan}}{{thumbs}}</text> -->
+            <button class='zan'  bindtap='zan'><text>{{zan}}{{thumbs}}</text>
+            </button>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,8 @@
+<!--pages/explain/explain.wxml-->
+<view class='container'>
+	<!-- <block class='list'> -->
+		<text class='title'>{{name}}</text>
+		<text class='content'>{{discriptions}}</text>
+	<!-- </block> -->
+</view>
+

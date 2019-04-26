@@ -1,0 +1,27 @@
+form {
+  width:750rpx;
+}
+.logo {
+  width:144rpx;
+  height: 144rpx;
+  display: block;
+  margin:0 auto;
+  margin-top:180rpx;
+  
+}
+.title {
+  text-align: center;
+  margin-top:70rpx;
+}
+.profile {
+  text-align: center;
+  margin-top:30rpx;
+  font-size: 14px;
+  color:#888;
+}
+.mini-btn{
+  margin-top: 50rpx;
+  margin-left: 50px;
+  margin-right: 50px;
+  background: #fd513f!important;
+}

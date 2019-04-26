@@ -1,0 +1,302 @@
+/* pages/detail/detail.wxss */
+.container {
+    width: 100%;
+    background: #fd513f;
+    overflow: hidden;
+    position: relative;
+}
+
+.top {
+    width: 100%;
+    height: 659rpx;
+    position: relative;
+}
+
+.top image {
+    width: 100%;
+    height: 639rpx;
+    position: relative;
+}
+
+.time {
+   position:absolute;
+    top:270rpx;
+    left:0;
+    right:0;
+    font-size:28rpx;
+    font-weight:bold;
+    width:100%;
+    text-align:center;
+    color:#e84410;
+
+}
+
+.intro {
+    width: 128rpx;
+    height: 76rpx;
+    position: fixed;
+    top: 30rpx;
+    right: 0;
+    z-index: 3;
+}
+
+.intro image {
+    width: 128rpx;
+    height: 76rpx;
+}
+
+.main {
+    width: 714rpx;
+    background: #ebebeb;
+    margin: 0 auto 158rpx auto;
+    min-height: 200rpx;
+    border-radius: 8rpx;
+}
+
+.my_comment, .user_comment {
+    position: relative;
+    z-index: 1;
+}
+
+.user_comment {
+    margin-top: 46rpx;
+}
+
+.title {
+    position: absolute;
+    top: -25rpx;
+    width: 272rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    background-color: #ffae46;
+    color: #a20800;
+    border-radius: 7rpx;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.my_list {
+    width: 674rpx;
+    background: #fff;
+    padding: 0 20rpx 40rpx 20rpx;
+    overflow: hidden;
+    border-radius: 8rpx;
+    position: relative;
+}
+
+.examine {
+    width: 100%;
+    position: absolute;
+    top: 160rpx;
+    left: 0;
+    text-align: center;
+    z-index: 2;
+    color: #cb0b00;
+    margin: 0 auto;
+    font-size: 30rpx;
+    line-height: 60rpx;
+    font-weight: bold;
+}
+
+.text1 {
+    font-size: 48rpx;
+    line-height: 70rpx;
+}
+
+.blur {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.my_info {
+    display: flex;
+    flex-direction: row;
+    height: 90rpx;
+    padding: 30rpx 0;
+}
+
+.photo_box {
+    width: 90rpx;
+    height: 90rpx;
+    position: relative;
+}
+
+.photo {
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 50%;
+}
+
+.photo_box text {
+    position: absolute;
+    bottom: 0;
+    width: 60rpx;
+    height: 28rpx;
+    line-break: 28rpx;
+    background: #fa544e;
+    color: #fff;
+    font-size: 22rpx;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 6rpx;
+}
+
+.user_name {
+    line-height: 90rpx;
+    font-size: 30rpx;
+    margin-right: auto;
+    margin-left: 14rpx;
+}
+
+.comment_time {
+    font-size: 24rpx;
+    color: #999;
+    line-height: 70rpx;
+}
+
+.comment_cotent {
+    line-height: 40rpx;
+    font-size: 28rpx;
+    margin-bottom: 32rpx;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /**
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    **/
+}
+
+.detail {
+    color: #418cfc;
+    margin-left: 10rpx;
+}
+
+.comment_pic {
+    display: flex;
+    flex-direction: row;
+}
+.item_pic1{
+    width: 220rpx;
+    height: 220rpx;
+    border-radius: 4rpx;
+    overflow: hidden;  
+    margin-right: 20rpx;
+}
+.item_pic {
+    width: 220rpx;
+    height: 220rpx;
+    border-radius: 4rpx;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.item_pic image,.item_pic1 image{
+    width: 220rpx;
+    height: 220rpx;
+}
+
+.zan_info {
+    display: flex;
+    flex-direction: row;
+    height: 44rpx;
+    line-height: 44rpx;
+    margin: 30rpx 0 18rpx 0;
+}
+
+.icon {
+    display: flex;
+    flex-direction: row;
+}
+
+.zanNum {
+    margin-right: auto;
+    color: #fea34a;
+    font-size: 24rpx;
+}
+
+.share {
+    margin-right: 60rpx;
+}
+
+.share, .zan {
+    display: flex;
+    flex-direction: row;
+}
+
+.share image, .zan image {
+    width: 44rpx;
+    height: 44rpx;
+    margin-right: 12rpx;
+}
+
+.share_text, .zan_text {
+    font-size: 22rpx;
+    color: #666;
+    height: 44rpx;
+    line-height: 44rpx;
+    display: inline-block;
+}
+
+.footer {
+    position: fixed;
+    width: 90%;
+    padding: 20rpx 5%;
+    height: 80rpx;
+    line-height: 80rpx;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f3f3f3;
+    z-index: 4;
+    display: flex;
+    flex-direction: row;
+    font-size: 30rpx;
+}
+
+.find_other {
+    color: #fa544e;
+    text-align: center;
+    flex: 1;
+}
+
+.btn {
+    width: 440rpx;
+    height: 80rpx;
+    background: url(https://wxapp.zyzsbj.cn/zyzs/btn.png) no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+}
+
+.btn text {
+    width: 220rpx;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    font-size: 28rpx;
+}
+.btn button{
+    border: none;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    width: 220rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    color: #fff;
+    font-size: 28rpx;
+    text-align: center;
+}
+
+.btn button::after {
+    border: 0;
+}

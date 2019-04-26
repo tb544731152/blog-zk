@@ -1,0 +1,573 @@
+/* pages/competition/competition.wxss */
+
+.container {
+    width: 100%;
+    background: #fd513f;
+    overflow: hidden;
+    position: relative;
+    min-height: 1334rpx;
+}
+
+.top {
+    width: 100%;
+    height: 659rpx;
+    position: relative;
+}
+
+.top image {
+    width: 100%;
+    height: 639rpx;
+    position: relative;
+}
+
+.time {
+    position: absolute;
+    top: 270rpx;
+    left: 0;
+    right: 0;
+    font-size: 28rpx;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    color: #e84410;
+   
+}
+
+.findPrize {
+    width: 120rpx;
+    height: 120rpx;
+    position: fixed;
+    top: 0rpx;
+    left: 0;
+    z-index: 3;
+}
+
+.findPrize image {
+     width: 120rpx;
+    height: 120rpx;
+}
+
+.find,.find view {
+    width: 161rpx !important;
+    height: 78rpx !important;
+    position: fixed;
+    top: 59rpx;
+    right: 0;
+    z-index: 3;
+    display: block;
+}
+
+.find image {
+    width: 161rpx;
+    height: 78rpx;
+    display: block;
+    margin-top: 0;
+}
+
+.intro {
+    width: 118rpx;
+    height: 81rpx;
+    position: fixed;
+    top: 30rpx;
+    right: 0;
+    z-index: 3;
+}
+
+.intro image {
+    width: 128rpx;
+    height: 76rpx;
+}
+
+.join {
+    position: fixed;
+    top: 947rpx;
+    right: 25rpx;
+    z-index: 3;
+    border: none;
+    background: none;
+    border-radius: 0;
+      width: 100rpx;
+    height: 100rpx;
+    padding:0;
+}
+
+.join image {
+    width: 100rpx;
+    height: 100rpx;
+}
+
+.zan, .tips_btn {
+    border: none;
+    line-height: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+button[class="join"]::after {
+    border: 0;
+}
+
+button[class="tips_btn"]::after {
+    border: 0;
+}
+
+.main {
+    width: 714rpx;
+    background: #f5f8fa;
+    margin: 0 auto 58rpx auto;
+    /* min-height: 200rpx; */
+    border-radius: 8rpx;
+}
+
+.my_comment, .user_comment {
+    position: relative;
+   
+}
+
+.my_comment {
+    margin-bottom: 46rpx;
+}
+
+.title {
+    position: absolute;
+    top: -25rpx;
+    width: 272rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    background-color:#ffcb88;
+    color: #a20800;
+    border-radius: 7rpx;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.my_list, .user_list {
+    overflow: hidden;
+    border-radius: 8rpx;
+    
+}
+
+.list_item {
+    width: 674rpx;
+    padding:0 20rpx;
+    position: relative;
+    background: #fff;
+    margin-bottom: 22rpx;
+    overflow: hidden;
+}
+
+.examine {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 2;
+    color: #cb0b00;
+    margin: 0 auto;
+    font-size: 30rpx;
+    line-height: 60rpx;
+    font-weight: bold;
+}
+
+.text1 {
+    font-size: 48rpx;
+    line-height: 70rpx;
+    height: 70rpx;
+}
+
+.blur {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.my_info {
+    display: flex;
+    flex-direction: row;
+    height: 90rpx;
+    padding: 30rpx 0;
+}
+
+.photo_box {
+    width: 90rpx;
+    height: 90rpx;
+    position: relative;
+}
+
+.photo {
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 50%;
+}
+
+.photo_box text {
+    position: absolute;
+    bottom: 0;
+    width: 60rpx;
+    height: 28rpx;
+    line-break: 28rpx;
+    background: #fa544e;
+    color: #fff;
+    font-size: 22rpx;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 6rpx;
+}
+
+.user_name {
+    line-height: 90rpx;
+    font-size: 30rpx;
+    margin-right: auto;
+    margin-left: 14rpx;
+}
+
+.comment_time {
+    font-size: 24rpx;
+    color: #999;
+    line-height: 70rpx;
+}
+
+.comment_cotent {
+    line-height: 40rpx;
+    font-size: 28rpx;
+    margin-bottom: 32rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.detail {
+    color: #418cfc;
+    margin-left: 10rpx;
+}
+
+.comment_pic {
+    display: flex;
+    flex-direction: row;
+     height: 220rpx;
+}
+.item_pic1 {
+    width: 220rpx;
+    height: 220rpx;
+    border-radius: 4rpx;  
+    margin-right: 20rpx;
+    overflow: hidden;
+}
+.item_pic {
+    width: 220rpx;
+    height: 220rpx;
+    border-radius: 4rpx;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.item_pic image,.item_pic1 image{
+    width:100%;
+    height: 220rpx;
+}
+
+.zan_info {
+    display: flex;
+    flex-direction: row;
+    height: 44rpx;
+    line-height: 44rpx;
+    margin: 30rpx 0 18rpx 0;
+}
+
+.icon {
+    display: flex;
+    flex-direction: row;
+}
+
+.zanNum {
+    margin-right: auto;
+    color: #fea34a;
+    font-size: 24rpx;
+}
+
+.share {
+    margin-right: 60rpx;
+}
+
+.share,.my_zan,.my_zan1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.my_zan,.my_zan1{
+    border: none;
+    line-height: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+button[class="my_zan"]::after {
+    border: 0;
+}
+button[class="my_zan1"]::after {
+    border: 0;
+}
+
+.share image {
+    width: 44rpx;
+    height: 44rpx;
+    margin-right: 12rpx;
+}
+
+.share_text, .zan_text {
+    font-size: 22rpx;
+    color: #666;
+    height: 44rpx;
+    line-height: 44rpx;
+    display: inline-block;
+}
+
+.more {
+    height: 50rpx;
+    line-height: 50rpx;
+    background: #ffede2;
+    text-align: center;
+    font-size: 24rpx;
+    color: #fe633a;
+    margin-top: -20rpx;
+}
+
+.more .up {
+    font-weight: bold;
+    margin-left: 40rpx;
+}
+
+.user_zan,.user_zan1{
+    display: flex;
+    flex-direction: row;
+    margin: 30rpx 0 30rpx 0;
+    margin-left: 87.5%;
+    border: none !important;
+    line-height: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+.user_zan1 .zan_text {
+    color: #f00;
+}
+
+button[class="user_zan"]::after {
+     border: none !important;
+}
+
+button[class="user_zan1"]::after {
+    border: none !important;
+}
+
+.user_zan .zan_img,.my_zan .zan_img{
+    width: 44rpx;
+    height: 44rpx;
+    margin-right: 12rpx;
+    background: url(https://wxapp.zyzsbj.cn/zyzs/zan.png) no-repeat;
+    background-size: cover;
+}
+
+.user_zan1 .zan_img,.my_zan1 .zan_img{
+    width: 44rpx;
+    height: 44rpx;
+    margin-right: 12rpx;
+    background: url(https://wxapp.zyzsbj.cn/zyzs/zan_on.png) no-repeat;
+    background-size: cover;
+}
+
+
+.user_list .photo_box text {
+    background: #b2b2b2;
+}
+
+.user_list .photo_box text.grey {
+    background: #b2b2b2;
+}
+
+.user_list .list_item:nth-child(1) .photo_box text,
+.user_list .list_item:nth-child(2) .photo_box text,
+.user_list .list_item:nth-child(3) .photo_box text {
+    background: #ffc600;
+}
+
+.no_comment {
+    width: 714rpx;
+    height: 176rpx;
+    background: #fff;
+    text-indent: 26rpx;
+    font-size: 24rpx;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    top: 700rpx;
+    border-radius: 8rpx;
+}
+
+.no {
+    font-size: 28rpx;
+    line-height: 60rpx;
+    padding-top: 40rpx;
+}
+
+.tips {
+    color: #418cfc;
+    line-height: 40rpx;
+    font-size: 24rpx;
+    text-align: left;
+}
+
+.noMore {
+    text-align: center;
+    background: #fff;
+    height: 80rpx;
+    line-height: 80rpx;
+}
+
+.prizeBox {
+    width: 100%;
+    height: 1178rpx;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10rpx;
+    margin: 0 auto;
+    z-index: 6667;
+}
+
+.close {
+    position: absolute;
+    top: 28rpx;
+    right: 20rpx;
+    width: 50rpx;
+    height: 50rpx;
+}
+
+.close image {
+    width: 50rpx;
+    height: 50rpx;
+}
+
+.prizeResult {
+    width: 631rpx;
+    height: 1070rpx;
+    padding: 0 18rpx;
+    margin: 0 auto;
+    background: url(https://wxapp.zyzsbj.cn/zyzs/bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.tips1 {
+    color: #b05c01;
+    font-size: 22rpx;
+    padding-top: 214rpx;
+    text-align: center;
+}
+
+.resultList {
+    height: 700rpx;
+    color: #bc7111;
+    font-size: 24rpx;
+    margin-top: 18rpx;
+}
+
+scroll-view {
+    height: 700rpx;
+}
+
+.result_item {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.prize_rank {
+    width: 108rpx;
+    color: #e84410;
+    font-family: 'FontMedium';
+    text-align: center;
+}
+
+.num {
+    color: #333;
+}
+
+.resultList .result_item:nth-child(1) .prize_rank {
+    background: url(https://wxapp.zyzsbj.cn/zyzs/medal1.png) no-repeat center center;
+    background-size: 40rpx 59rpx;
+}
+
+.resultList .result_item:nth-child(2) .prize_rank {
+    background: url(https://wxapp.zyzsbj.cn/zyzs/medal2.png) no-repeat center center;
+    background-size: 40rpx 59rpx;
+}
+
+.resultList .result_item:nth-child(3) .prize_rank {
+    background: url(https://wxapp.zyzsbj.cn/zyzs/medal3.png) no-repeat center center;
+    background-size: 40rpx 59rpx;
+}
+
+.prize_user {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+}
+
+.prize_photo {
+    width: 56rpx;
+    height: 56rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 7rpx 0;
+    margin-right: 18rpx;
+}
+
+.prize_photo image {
+    width: 56rpx;
+    height: 56rpx;
+}
+
+.prize_user {
+    margin-right: auto;
+}
+
+.prize_pdc {
+    margin-right: 24rpx;
+}
+
+.result_tip {
+    color: #ff2a2a;
+    font-size: 36rpx;
+    text-align: center;
+    font-family: 'FontMedium';
+    font-weight: bold;
+    height: 86rpx;
+    line-height: 88rpx;
+}
+
+.getPrize {
+    width: 540rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    background: url(https://wxapp.zyzsbj.cn/zyzs/btn1.png) no-repeat;
+    background-size: cover;
+    color: #fff;
+    font-size: 30rpx;
+    margin: 0 auto;
+    margin-top: 20rpx;
+    text-align: center;
+}

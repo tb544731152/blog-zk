@@ -1,0 +1,249 @@
+<view class="{{commonScreen==false?'container common_screen':'container'}}">
+    <view class='findPrize' bindtap='findPrize' hidden="{{findPrize}}">
+        <image src='../../images/prizebtn.png'></image>
+    </view>
+    <!-- <view class='find' bindtap='findFun'>
+        <image src='../../images/find.png'></image>
+    </view> -->
+    <view class='intro' bindtap='introFun'>
+        <image src='../../images/intro.png'></image>
+    </view>
+    <button class='join' hover-class="none"  bindtap='joinFun'>
+        <image src='../../images/join.png'></image>
+    </button>
+
+
+    <view class='top'>
+        <image src='{{topImg}}'></image>
+        <text class='time'>{{time}}</text>
+    </view>
+
+
+    <view class='main'>
+        <view class='my_comment' hidden='{{myCommentHidden}}'>
+            <view class='title'>
+                <text>我的评论</text>
+            </view>
+
+            <view class='my_list'>
+                <view class='list_item' wx:for="{{ourselfs}}" wx:for-index="my_index" wx:key="my_index" hidden="{{my_index1<my_index}}">
+                    <view class='{{item.art.status==0? "list_content blur":"list_content"}}'>
+                        <view bindtap="detailPage" data-aid="{{item.art.aid}}">
+                            <view class='my_info'>
+                                <view class='photo_box'>
+                                    <image class='photo' src='{{item.art.author.headimg}}' mode='aspectFill'></image>
+                                    <text>我</text>
+                                </view>
+                                <view class='user_name'>
+                                    <text>{{item.art.author.nickname}}</text>
+                                </view>
+                                <view class='comment_time'>
+                                    <text>{{item.art.createTime}}</text>
+                                </view>
+                            </view>
+
+                            <view class='comment_cotent'>
+                                <text>{{item.art.content}}</text>
+                            </view>
+                        </view>
+
+                        <view class='comment_pic'hidden='{{item.imgsList.length==0}}'>
+                            <view class='{{item.imgsList.length<=2?"item_pic1":"item_pic"}}' wx:for='{{item.imgsList}}'  wx:for-item="myimgItem" wx:for-index="index" wx:key="index">
+                                <image bindtap="imgYu" data-list="{{item.imgsList}}" data-src="{{myimgItem}}" src='{{myimgItem}}' mode='aspectFill'></image>
+                            </view>
+
+                        </view>
+
+
+                        <view class='zan_info'>
+                            <view class='zanNum' wx:if="{{item.art.status==1 && item.art.remark!=null && item.art.remark!='审核通过'}}">
+                                <text>距第10名差{{item.art.remark}}个赞</text>
+                            </view>
+
+                            <view class='zanNum' wx:else>
+                            </view>
+                            <view class='icon'>
+                                <view class='share' bindtap="sharePage" data-aid="{{item.art.aid}}">
+                                    <view class='share_img'>
+                                        <image src='../../images/share.png'></image>
+                                    </view>
+                                    <view class='share_text'>
+                                        <text>分享</text>
+                                    </view>
+                                </view>
+
+                                <view class='{{item.art.isthumbs==true? "my_zan1":"my_zan"}}' bindtap='myZan' data-aid="{{item.art.aid}}" data-isthumbs='{{item.art.isthumbs}}'>
+                                    <view class='zan_img'>
+                                        <!-- <image src='../../images/zan.png'></image> -->
+                                    </view>
+                                    <view class='zan_text'>
+                                        <text>{{item.art.thumbs}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+
+
+
+                    </view>
+                    <view class='examine' wx:if='{{item.art.status==0}}'>
+                        <view style='height:30%;'></view>
+                        <view class='text1'>
+                            <text>审核中</text>
+                        </view>
+                        <view>
+                            <text>工作人员正在拼命审核，请耐心等待...</text>
+                        </view>
+
+                    </view>
+
+                </view>
+            </view>
+
+            <view class='more' bindtap='down' hidden='{{downHidden}}'>
+                <text>共{{total}}篇，{{auditNum}}篇审核中</text>
+                <text class='up'>{{text}}</text>
+            </view>
+
+        </view>
+
+        <view class='user_comment' hidden='{{userCommentHidden}}'>
+            <view class='title'>
+                <text>全部评论</text>
+            </view>
+
+            <view class='user_list'>
+                <view class='list_item' wx:for="{{ranks}}" wx:for-index="user_index" wx:key="user_index">
+                    <view class='{{item.art.status==0? "list_content blur":"list_content"}}'>
+                        <view bindtap="detailPage" data-aid="{{item.art.aid}}">
+                            <view class='my_info'>
+                                <view class='photo_box'>
+                                    <image class='photo' src='{{item.art.author.headimg}}' mode='aspectFill'></image>
+                                    <text>No.{{item.art.rank}}</text>
+                                </view>
+                                <view class='user_name'>
+                                    <text>{{item.art.author.nickname}}</text>
+                                </view>
+                                <view class='comment_time'>
+                                    <text>{{item.art.createTime}}</text>
+                                </view>
+                            </view>
+
+                            <view class='comment_cotent'>
+                                <text>{{item.art.content}}</text>
+
+                            </view>
+                        </view>
+
+
+
+                        <view class='comment_pic' hidden='{{item.imgsList.length==0}}'>
+                            <view class='{{item.imgsList.length<=2?"item_pic1":"item_pic"}}' wx:for='{{item.imgsList}}' wx:for-item="userimgItem" wx:for-index="index" wx:key="index">
+                                <image bindtap="userimgYu" data-list="{{item.imgsList}}" data-src="{{userimgItem}}" src='{{userimgItem}}' mode='aspectFill'></image>
+                            </view>
+
+                        </view>
+
+
+
+
+
+
+
+
+
+
+
+
+                    </view>
+                    <button hover-class="none" class='{{item.art.isthumbs==true? "user_zan1 ":"user_zan"}}' bindtap='userZan' data-aid="{{item.art.aid}}" data-isthumbs='{{item.art.isthumbs}}'>
+                        <view class='zan_img'>
+                            <!-- <image src='../../images/zan.png'></image> -->
+                        </view>
+                        <view class='zan_text'>
+                            <text>{{item.art.thumbs}}</text>
+                        </view>
+                    </button>
+
+                    <view class='examine' wx:if='{{item.art.status==0}}'>
+                        <view style='height:30%;'></view>
+                        <view class='text1'>
+                            <text>审核中</text>
+                        </view>
+                        <view>
+                            <text>工作人员正在拼命审核，请耐心等待...</text>
+                        </view>
+
+                    </view>
+
+                </view>
+
+
+
+            </view>
+
+
+        </view>
+
+        <view class='no_comment' hidden="{{hiddenNO}}">
+            <view class='no'>
+                <text>暂无评论</text>
+            </view>
+            <!-- <view class='tips'>
+                快来第一个发表吧！
+            </view> -->
+            <button class='tips_btn' hover-class="none"  bindtap='joinFun'>
+                <view class='tips'>快来第一个发表吧！</view>
+            </button>
+        </view>
+
+        <view class='noMore' hidden="{{noMoreHidden}}">
+            <text>没有更多了</text>
+        </view>
+    </view>
+
+    <view class='mask' hidden='{{prizeBox}}'></view>
+
+    <view class='prizeBox' hidden='{{prizeBox}}'>
+        <view class='close' bindtap='close'>
+            <image src='../../images/close.png'></image>
+        </view>
+        <view class='prizeResult'>
+            <view class='tips1'>
+                <text>请于7天内填写收货信息，逾期失效！</text>
+            </view>
+
+            <view class='resultList'>
+                <scroll-view scroll-y='true'>
+                    <view class='result_item' wx:for="{{resultRanks}}" wx:for-index="idx" wx:key="idx">
+                        <view class='prize_rank' wx:if="{{idx>2}}">
+                            <text class='num'>No.</text>{{item.rank}}</view>
+                        <view class='prize_rank' wx:else>
+                        </view>
+                        <view class='prize_user'>
+                            <view class='prize_photo'>
+                                <image src='{{item.author.headimg}}' mode='aspectFit'></image>
+                            </view>
+                            <view class='prize_name'>
+                                <text>{{item.author.nickname}}</text>
+                            </view>
+                        </view>
+                        <view class='prize_pdc'>
+                            <text>获得{{prizeName}}</text>
+                        </view>
+                    </view>
+
+                </scroll-view>
+            </view>
+
+            <view class='result_tip'>
+                <text>{{resulTip}}</text>
+            </view>
+
+        </view>
+
+        <view class='getPrize' hidden='{{getPrize}}' bindtap='getPrize'>
+            <text>去领奖</text>
+        </view>
+    </view>
+</view>
