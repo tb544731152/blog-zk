@@ -72,7 +72,7 @@
                                     </view>
                                 </view>
 
-                                <view class='{{item.art.isthumbs==true? "my_zan1":"my_zan"}}' bindtap='myZan' data-aid="{{item.art.aid}}" data-isthumbs='{{item.art.isthumbs}}'>
+                                <view class='{{item.art.isthumbs==true? "my_zan1":"my_zan"}}' bindtap='myZan' data-aid="{{item.art.aid}}" data-thumbs='{{item.art.thumbs}}'>
                                     <view class='zan_img'>
                                         <!-- <image src='../../images/zan.png'></image> -->
                                     </view>
@@ -156,7 +156,7 @@
 
 
                     </view>
-                    <button hover-class="none" class='{{item.art.isthumbs==true? "user_zan1 ":"user_zan"}}' bindtap='userZan' data-aid="{{item.art.aid}}" data-isthumbs='{{item.art.isthumbs}}'>
+                    <button hover-class="none" class='{{item.art.isthumbs==true? "user_zan1 ":"user_zan"}}' bindtap='userZan' data-aid="{{item.art.aid}}" data-thumbs='{{item.art.thumbs}}'>
                         <view class='zan_img'>
                             <!-- <image src='../../images/zan.png'></image> -->
                         </view>
@@ -216,7 +216,7 @@
             <view class='resultList'>
                 <scroll-view scroll-y='true'>
                     <view class='result_item' wx:for="{{resultRanks}}" wx:for-index="idx" wx:key="idx">
-                        <view class='prize_rank' wx:if="{{idx>2}}">
+                        <view class='prize_rank' wx:if="{{idx>0}}">
                             <text class='num'>No.</text>{{item.rank}}</view>
                         <view class='prize_rank' wx:else>
                         </view>
@@ -229,7 +229,7 @@
                             </view>
                         </view>
                         <view class='prize_pdc'>
-                            <text>获得{{prizeName}}</text>
+                            <text>{{item.prizeName}}</text>
                         </view>
                     </view>
 

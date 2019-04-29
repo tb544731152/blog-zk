@@ -45,11 +45,21 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        var that=this;
-        that.judgeSQ();
-        that.imgFun();
-       
-     
+      const _this = this
+      const token = wx.getStorageSync('token');
+      console.log(token)
+      if (!token) {
+        _this.goLoginPageTimeOut()
+        return
+      }
+      /**
+       * token 检查**/
+      WXAPI.checkToken(token).then(function (res) {
+        if (res.code != 1000) {
+          wx.removeStorageSync('token')
+          _this.goLoginPageTimeOut()
+        }
+      })
 
     },
 
@@ -64,9 +74,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        var that = this;
-        that.onLoad();
-      
+        console.log('调研 on show');
+      var that = this;
+      that.judgeSQ();
+      that.imgFun();
     },
 
     /**
@@ -82,12 +93,34 @@ Page({
     onUnload: function() {
 
     },
-
+  goLoginPageTimeOut: function () {
+    // wx.removeStorageSync('token')
+    setTimeout(function () {
+      wx.navigateTo({
+        url: "/pages/authorize/index"
+      })
+    }, 1000)
+  },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function() {
       wx.stopPullDownRefresh();
+      const _this = this
+      const token = wx.getStorageSync('token');
+      console.log(token)
+      if (!token) {
+        _this.goLoginPageTimeOut()
+        return
+      }
+      /**
+       * token 检查**/
+      WXAPI.checkToken(token).then(function (res) {
+        if (res.code != 1000) {
+          wx.removeStorageSync('token')
+          _this.goLoginPageTimeOut()
+        }
+      })
       var that = this ;
         wx.showLoading({
             title: '加载中',
@@ -99,7 +132,7 @@ Page({
                 noMoreHidden: true,
         })
         setTimeout(function() {
-            that.onLoad();
+            that.onShow();
             wx.hideLoading();
         }, 2000);
 
@@ -109,12 +142,29 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function() {
+      const _this = this
+      const token = wx.getStorageSync('token');
+      if (!token) {
+        _this.goLoginPageTimeOut()
+        return
+      }
+      /**
+       * token 检查**/
+      WXAPI.checkToken(token).then(function (res) {
+        console.log(res)
+        if (res.code != 1000) {
+          wx.removeStorageSync('token')
+          _this.goLoginPageTimeOut()
+        }
+      })
         wx.showLoading({
           title: '加载中',
         })
         setTimeout(function () {
+          _this.dataList1()
           wx.hideLoading();
         }, 2000);
+        /**
         var isLoading = this.data.isLoading;
         var rankslen = this.data.ranks.length;
         var page1 = this.data.page1;
@@ -124,11 +174,9 @@ Page({
             that.setData({
                 page1: page1
             })
-            this.dataList1();
+            
         }
-
-
-
+         */
     },
 
     /**
@@ -148,6 +196,7 @@ Page({
             apiName: 'WX_GET_ARTICLE',
             appId: 'wxa192d06cd30b94b7'
         }).then(function(res) {
+            console.log(res.data);
             if (sessionId != 123) {
                 //登录后看到的数据           
               if (res.data.ourselfs !=null && res.data.ourselfs.length != 0) {
@@ -197,7 +246,7 @@ Page({
                         userCommentHidden: true
                     })
                 }
-                if (res.data.ourselfs.length == 0 && res.data.ranks.length == 0) {
+              if (res.data.ourselfs!=null && res.data.ourselfs.length == 0 && res.data.ranks.length == 0) {
                     that.setData({
                         hiddenNO: false,
                     })
@@ -225,7 +274,7 @@ Page({
 
 
 
-            //wx.stopPullDownRefresh();
+            wx.stopPullDownRefresh();
 
         })
 
@@ -234,6 +283,10 @@ Page({
     //loading加载数据
     dataList1: function() {      
         var that = this;
+        var page1 = this.data.page1+1;
+        that.setData({
+          page1: page1
+        })
         var sessionId = that.data.sessionId;
         var page1 = that.data.page1;
         WXAPI.wxarticles({
@@ -288,10 +341,8 @@ Page({
                 }
             }          
 
-
-
+          wx.stopPullDownRefresh();
         })
-
     },
     //我的评论展开和收起
     down: function() {
@@ -355,124 +406,87 @@ Page({
         var method = 1;
         var sessionId = that.data.sessionId;
         var aid = e.currentTarget.dataset.aid;
+        var num = e.currentTarget.dataset.thumbs;
+        console.log(num);
         var isthumbs = e.currentTarget.dataset.isthumbs;
-        if (isthumbs == false) {
-            WXAPI.zan({
-                sessionId: sessionId,
-                method: method,
-                aid: aid,
-                apiName: 'WX_ARTICLES_THUMBS',
-                appId: 'wxa192d06cd30b94b7',
+          WXAPI.zan({
+            sessionId: sessionId,
+            method: method,
+            aid: aid,
+            apiName: 'WX_ARTICLES_THUMBS',
+            appId: 'wxa192d06cd30b94b7',
 
-            }).then(function(res) {
-                if (res.code == 4000) {
-                    for (var i = 0; i < ourselfs.length; i++) {
-                        if (ourselfs[i].aid == aid) {
-                            ourselfs[i].thumbs = ourselfs[i].thumbs + 1;
-                            ourselfs[i].isthumbs = true;
-                            that.setData({
-                                ourselfs: ourselfs,
-                                ismyAid: aid,
-                            })
-                        }
-                    }
-                } else if (res.code == 6001) {
-                    wx.showToast({
-                        title: res.msg,
-                        icon: 'none',
-                        duration: 2000
-                    })
-                } else {
-                    wx.showToast({
-                        title: res.msg,
-                        icon: 'none',
-                        duration: 2000
-                    })
+          }).then(function (res) {
+            if (res.code == 4000) {
+              var index = -1;
+              for (var i = 0; i < ourselfs.length; i++) {
+                if (ourselfs[i].art.aid == aid) {
+                  index = i;
                 }
-            })
-        } else {
-            wx.showToast({
-                title: '您已经点过了',
+              }
+              if (index != -1) {
+                that.setData({
+                  [`ourselfs[${index}].art.isthumbs`]: true,
+                  [`ourselfs[${index}].art.thumbs`]: num + 1
+                })
+              }
+              wx.showToast({
+                title: "点赞成功",
                 icon: 'none',
                 duration: 2000
-            })
-        }
-
-    },
-    //用户评论点赞
-    userZan: function(e) {
-        var that = this;
-        var ranks = that.data.ranks;
-        var method = 1;
-        var sessionId = that.data.sessionId;
-        var aid = e.currentTarget.dataset.aid;
-        var isthumbs = e.currentTarget.dataset.isthumbs;
-        wx.getSetting({
-            success: function(res) {
-                if (res.authSetting['scope.userInfo']) {
-                    //登录授权后
-                    console.log('用户授权后评论')
-                    if (isthumbs == false) {
-                        WXAPI.zan({
-                            sessionId: sessionId,
-                            method: method,
-                            aid: aid,
-                            apiName: 'WX_ARTICLES_THUMBS',
-                            appId: 'wxa192d06cd30b94b7',
-
-                        }).then(function(res) {                   
-                            if (res.code == 4000) {                           
-                                for (var i = 0; i < ranks.length; i++) {
-                                    if (ranks[i].aid == aid) {
-                                        ranks[i].thumbs = ranks[i].thumbs + 1;
-                                        ranks[i].isthumbs = true;
-                                        that.setData({
-                                            ranks: ranks,
-                                            isUserAid: aid,
-                                        })
-
-                                    }
-                                }
-                              
-                            } else if (res.code == 6001) {
-
-
-                                wx.showToast({
-                                    title: res.msg,
-                                    icon: 'none',
-                                    duration: 2000
-                                })                            
-                            } else {
-                                wx.showToast({
-                                    title: res.msg,
-                                    icon: 'none',
-                                    duration: 2000
-                                })
-                            }
-                        })
-                    }else{
-                        wx.showToast({
-                            title: '您已经点过了',
-                            icon: 'none',
-                            duration: 2000
-                        })
-                    }
-                    that.onLoad();
-
-                } else {
-                    //未登录授权
-                    console.log('没有登录授权无法点赞');
-                    wx.navigateTo({
-                        url: "../authorize/index"
-                    })
-                }
+              })
+            } else {
+              wx.showToast({
+                title: res.msg,
+                icon: 'none',
+                duration: 2000
+              })
             }
+          })
+
+  }, 
+  userZan: function (e) {
+    var that = this;
+    var method = 1;
+    var sessionId = that.data.sessionId;
+    var aid = e.currentTarget.dataset.aid;
+    var num = e.currentTarget.dataset.thumbs;
+    var ranks = that.data.ranks;
+    WXAPI.zan({
+      sessionId: sessionId,
+      method: method,
+      aid: aid,
+      apiName: 'WX_ARTICLES_THUMBS',
+      appId: 'wxa192d06cd30b94b7'
+    }).then(function (res) {
+      console.log(res.data);
+      if (res.code == 4000) {
+        var index = -1; 
+        for (var i = 0; i < ranks.length; i++) {
+          if (ranks[i].art.aid == aid) {
+            index = i;
+          }
+        }
+        if(index != -1){
+          that.setData({
+            [`ranks[${index}].art.isthumbs`]: true,
+            [`ranks[${index}].art.thumbs`]: num+1
+          })
+        }
+        wx.showToast({
+          title: '点赞成功',
+          icon: 'none',
+          duration: 2000
         })
-
-
-
-
-    },
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  },
     //中奖结果
     resultFun: function() {
         var that = this;
@@ -556,27 +570,29 @@ Page({
     //
     imgFun:function(){
         var that=this;
-        WXAPI.explain().then(function (res) {  
-            console.log(res)
-            var startdate = res.data.startdate;
-            var enddate = res.data.enddate;
-            startdate = startdate.split(' ');
-            startdate = startdate[0];
-            startdate = startdate.replace(/-/g, ".");
-            enddate = enddate.split(' ');
-            enddate = enddate[0];
-            enddate = enddate.replace(/-/g, ".");
-            that.setData({
-                prizeName: res.data.prizeName,
-                topImg: 'https://wxapp.zyzsbj.cn/wxappservice/api/file/get/image/'+res.data.logoImg,
-                time: startdate +"-"+enddate,
-                findUrl: res.data.clickUrl,
-                competitionName:res.data.name,
-            })
+        if(that.data.topImg  == ''){
+          WXAPI.explain().then(function (res) {  
+              console.log(res)
+              var startdate = res.data.startdate;
+              var enddate = res.data.enddate;
+              startdate = startdate.split(' ');
+              startdate = startdate[0];
+              startdate = startdate.replace(/-/g, ".");
+              enddate = enddate.split(' ');
+              enddate = enddate[0];
+              enddate = enddate.replace(/-/g, ".");
+              that.setData({
+                  prizeName: res.data.prizeName,
+                  topImg: 'https://wxapp.zyzsbj.cn/wxappservice/api/file/get/image/'+res.data.logoImg,
+                  time: startdate +"-"+enddate,
+                  findUrl: res.data.clickUrl,
+                  competitionName:res.data.name,
+              })
+          })
+        }
 
 
 
-        })
     },
     imgYu: function (event) {
         var src = event.currentTarget.dataset.src;//获取data-src
@@ -602,7 +618,9 @@ Page({
     that.setData({
       sessionId: wx.getStorageSync('token')
     })
-    that.dataList();
+    if (that.data.ranks.length==0){
+       that.dataList();
+    }
     that.prizeList();  
   }, 
     /**

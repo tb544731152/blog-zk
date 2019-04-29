@@ -13,7 +13,26 @@ Page({
         one: true,
 
     },
-
+  /**
+      * 生命周期函数--监听页面加载
+      */
+  onLoad: function (options) {
+    const _this = this
+    const token = wx.getStorageSync('token');
+    if (!token) {
+      _this.goLoginPageTimeOut()
+      return
+    }
+    /**
+     * token 检查**/
+    WXAPI.checkToken(token).then(function (res) {
+      console.log(res)
+      if (res.code != 1000) {
+        wx.removeStorageSync('token')
+        _this.goLoginPageTimeOut()
+      }
+    })
+  },
     loadimg: function(e) {
         var that = this;
         var dataValue = that.data.dataValue;
@@ -159,7 +178,15 @@ Page({
                 })
             }
         })
-    },
+  },
+  goLoginPageTimeOut: function () {
+    // wx.removeStorageSync('token')
+    setTimeout(function () {
+      wx.navigateTo({
+        url: "/pages/authorize/index"
+      })
+    }, 1000)
+  },
 
 
     imgfun: function() {

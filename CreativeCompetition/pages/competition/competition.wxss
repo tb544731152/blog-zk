@@ -511,16 +511,6 @@ scroll-view {
     background-size: 40rpx 59rpx;
 }
 
-.resultList .result_item:nth-child(2) .prize_rank {
-    background: url(https://wxapp.zyzsbj.cn/zyzs/medal2.png) no-repeat center center;
-    background-size: 40rpx 59rpx;
-}
-
-.resultList .result_item:nth-child(3) .prize_rank {
-    background: url(https://wxapp.zyzsbj.cn/zyzs/medal3.png) no-repeat center center;
-    background-size: 40rpx 59rpx;
-}
-
 .prize_user {
     display: flex;
     display: -webkit-flex;
