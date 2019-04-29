@@ -38,12 +38,15 @@ public class TCreativeCompetition {
 		3 评论 * 3
 	 */
 	private Map<String,Integer> rankMethod;
+	
 	//查询最终筛选排名数
 	private Integer rankNums;
 	//查询跳转链接
 	private String clickUrl;
 	//是否生成中奖名单
 	private Boolean generate;
+	
+	
 	
 	
 }

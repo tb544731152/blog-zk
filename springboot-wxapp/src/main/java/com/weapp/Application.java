@@ -78,7 +78,7 @@ public class Application implements CommandLineRunner{
 				ApiConstant.WX_RANK_RESULT,ApiConstant.ADD_USER_ADDRESS,
 				ApiConstant.WX_UPDATE_CONF,ApiConstant.WX_EXAMINE_ARTICLE
 				,ApiConstant.WX_QUERY_ARTICLES,ApiConstant.WX_GET_CONFS,
-				ApiConstant.WX_QUERY_RANKS,ApiConstant.WX_CHECK_TOKEN
+				ApiConstant.WX_QUERY_RANKS,ApiConstant.WX_CHECK_TOKEN,ApiConstant.PRIZE_CONF
 		 };
 		
 		Map<String, Map<String,Integer>> apiMap = Maps.newHashMap();

@@ -41,6 +41,7 @@ import com.mongodb.WriteResult;
 import com.weapp.common.constant.ApiConstant;
 import com.weapp.common.util.MongoPageable;
 import com.weapp.entity.app.TAddress;
+import com.weapp.entity.app.TPrize;
 import com.weapp.entity.app.TUser;
 import com.weapp.entity.auth.AppKey;
 import com.weapp.entity.conf.TCreativeCompetition;
@@ -66,6 +67,9 @@ import com.weapp.utils.WxMessageUtils;
 public class WxArticleService {
 	@Autowired
 	private WxArticleRepository articleRepository;
+	
+	@Autowired
+	private PrizeService prizeService;
 	
 	@Autowired
 	private AppKeyRepository appKeyRepository;
@@ -463,39 +467,21 @@ public class WxArticleService {
 	}
 	
 	
+	
 	public Map<String,Object> generateRankRessult( String sessionId){
 		Map<String,Object> rankResult = new HashMap<String, Object>();
 		List<TCreativeCompetition> confs = queryConfOrderByCreateDate();
 		if(confs!=null&&confs.size()>0){
 			TCreativeCompetition latelyConf = confs.get(0);
 			List<RankResult> result = new ArrayList<RankResult>();
+			Map<String,String> sort= new HashMap<String, String>();
 			if(latelyConf.getGenerate()){
 				result = queryRankResultByPeriods(latelyConf.getStage());
-			}else{
-				//生成中奖名单
-				Set<Tuple> set = redisService.getZset(ApiConstant.WX_ARTICLES_RANK_DB_prefix+latelyConf.getStage(), 0,latelyConf.getRankNums()-1);
-				for (Tuple temp : set) {
-					String aid = temp.getElement();
-					List<Article> tempArticles = articleRepository.findByAid(aid);
-					if(tempArticles!=null&&tempArticles.size()>0){
-						Article tempArticle =tempArticles.get(0);
-						Rank rank = redisService.queryRank(ApiConstant.WX_ARTICLES_RANK_DB_prefix+tempArticle.getPeriods(), tempArticle.getAid());
-						Long tempRank = rank.getRank();
-						RankResult res = new RankResult();
-						res.setAid(aid);
-						res.setAuthor(tempArticle.getAuthor());
-						res.setCreateTime(getDateFormat());
-						res.setOpenId(tempArticle.getOpenId());
-						res.setPeriods(tempArticle.getPeriods());
-						res.setRank(tempRank);
-						//保存结果
-						rankResultRepository.save(res);
-						result.add(res);
-					}
+				for(RankResult res : result){
+					sort.put(res.getOpenId(), res.getAid());
 				}
-				//更新活动配置
-				updateConf(latelyConf);
-			
+			}else{
+				generateRank(sort,0, latelyConf.getRankNums()-1, result, latelyConf);
 			}
 			rankResult.put("ranks",result);
 			Map<String,String> myselfResult = new HashMap<String, String>();
@@ -505,14 +491,13 @@ public class WxArticleService {
 			//获取用户信息
 			TUser user = redisService.get(SessionKey.session, sessionId, TUser.class);
 			if(user!=null){
-				String member = iswin(user, latelyConf);
-				if(member!=null){
+				if(sort.containsKey(user.getOpenId())){
 					myselfResult.put("code","1");
 					myselfResult.put("msg", "您在排名之内！赶快去领奖吧！");
-					myselfResult.put("aid", member);
+					myselfResult.put("aid", sort.get(user.getOpenId()));
 					rankResult.put("myself",myselfResult);
 					//查询是否已领取
-					List<TAddress> awards = addressService.queryAwardByAid(member);
+					List<TAddress> awards = addressService.queryAwardByAid(sort.get(user.getOpenId()));
 					if(awards!=null && awards.size()>0){
 						myselfResult.put("code","2");
 						myselfResult.put("msg", "您已领取过");
@@ -523,6 +508,59 @@ public class WxArticleService {
 		}
 		return rankResult;
 	}
+	
+	public List<RankResult> generateRank(Map<String,String> sort ,Integer start,Integer end,List<RankResult> result,TCreativeCompetition latelyConf){
+		//生成中奖名单
+		Set<Tuple> set = redisService.getZset(ApiConstant.WX_ARTICLES_RANK_DB_prefix+latelyConf.getStage(),start,end);
+		for (Tuple temp : set) {
+			String aid = temp.getElement();
+			List<Article> tempArticles = articleRepository.findByAid(aid);
+			if(tempArticles!=null&&tempArticles.size()>0){
+				Article tempArticle =tempArticles.get(0);
+				Rank rank = redisService.queryRank(ApiConstant.WX_ARTICLES_RANK_DB_prefix+tempArticle.getPeriods(), tempArticle.getAid());
+				Long tempRank = rank.getRank();
+				RankResult res = new RankResult();
+				res.setAid(aid);
+				res.setAuthor(tempArticle.getAuthor());
+				res.setCreateTime(getDateFormat());
+				res.setOpenId(tempArticle.getOpenId());
+				res.setPeriods(tempArticle.getPeriods());
+				res.setRank(tempRank);
+				//保存结果
+				if(!sort.containsKey(res.getOpenId())){
+					sort.put(res.getOpenId(), res.getAid());
+					Integer tempRankRes = sort.values().size();
+					res.setRank(tempRankRes.longValue());
+					res.setPrizeName(getPrizeName(latelyConf.getStage(), tempRankRes.longValue()));
+					rankResultRepository.save(res);
+					result.add(res);
+				}
+			}
+		}
+		if(set.size() == (end - start + 1) && sort.values().size() != latelyConf.getRankNums()){
+			//继续 
+			Integer tempStart = end+1;
+			Integer tempEnd =  tempStart +  (latelyConf.getRankNums() - sort.values().size() - 1 );
+			generateRank(sort, tempStart, tempEnd, result, latelyConf);
+		}
+		//更新活动配置
+		updateConf(latelyConf);
+		return result;
+	}
+	
+	public String getPrizeName(String stage,Long rank){
+		List<TPrize> prizes = prizeService.queryByStage(stage);
+		if(prizes!=null){
+			for (TPrize prize : prizes) {
+				if(rank.intValue()>=prize.getStart() && rank.intValue() <=prize.getEnd()){
+					return prize.getPrizeName();
+				}
+			}
+		}
+		return "暂无";
+	}
+	
+	
 	public String getDateFormat(){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(new Date());
@@ -576,7 +614,9 @@ public class WxArticleService {
 	public List<ArticleResult> artChangeResult(List<Article> artlist){
 		List<ArticleResult> list = new ArrayList<ArticleResult>();
 		for (Article art : artlist) {
-			list.add(new ArticleResult(art));
+			if(!art.getStatus().equals("2")){
+				list.add(new ArticleResult(art));
+			}
 		}
 		return list;
 	 } 

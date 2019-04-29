@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mongodb.WriteResult;
 import com.weapp.common.annotation.Api;
 import com.weapp.common.constant.ApiConstant;
+import com.weapp.entity.app.TPrize;
 import com.weapp.entity.app.TUser;
 import com.weapp.entity.conf.TCreativeCompetition;
 import com.weapp.entity.result.CodeMsg;
@@ -20,6 +21,7 @@ import com.weapp.entity.result.Result;
 import com.weapp.entity.vm.ArticleVM;
 import com.weapp.redis.SessionKey;
 import com.weapp.service.ConfigService;
+import com.weapp.service.PrizeService;
 /***
  * 活动配置
  * @author dsk_zyzs@aliyun.com
@@ -50,5 +52,19 @@ public class ConfigContoller {
 	public Result<?> saveArticle(@PathVariable String stage,@Valid TCreativeCompetition tConf){
 		boolean res = confService.updateConf(stage,tConf);
 		return  Result.success(res);
+	}
+	
+	
+	@Autowired
+	private PrizeService prizeService;
+	/**
+	 * 奖品配置
+	 * @return
+	 */
+	@Api(name = ApiConstant.PRIZE_CONF)
+	@RequestMapping(value = "/api/prize/conf", method = RequestMethod.POST, produces = "application/json")
+	public Result<?>  getConfs(@Valid TPrize prize){
+		prizeService.save(prize);
+		return Result.success("ok");
 	}
 }

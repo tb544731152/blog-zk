@@ -6,6 +6,9 @@ package com.weapp.common.constant;
  *
  */
 public class ApiConstant {
+	
+	/*测试*/	
+	public final static String PRIZE_CONF = "PRIZE_CONF";
 	/*测试*/	
 	public final static String TEST_HTTP = "TEST_HTTP";
 	

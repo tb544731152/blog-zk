@@ -25,5 +25,6 @@ public class RankResult {
 	private Map<String,String> author;
 	//排名
 	private Long rank;
+	private String prizeName;
 	private String createTime;
 }
